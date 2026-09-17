@@ -4,7 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Comp & Forecast Copilot</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>" />
   <link rel="stylesheet" href="/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
   <header>
@@ -14,29 +16,29 @@
 
   <main>
     <section class="card-grid">
-      <div class="card" id="commission-card">
-        <h2>Commission</h2>
+      <div class="card card--commission" id="commission-card">
+        <h2><span class="card-icon">💰</span>Commission</h2>
         <div class="stat" id="commission-total">—</div>
         <div class="stat-label">total paid out</div>
         <ul class="detail-list" id="commission-detail"></ul>
       </div>
 
-      <div class="card" id="forecast-card">
-        <h2>Revenue Forecast</h2>
+      <div class="card card--forecast" id="forecast-card">
+        <h2><span class="card-icon">📈</span>Revenue Forecast</h2>
         <div class="stat" id="forecast-total">—</div>
         <div class="stat-label">blended forecast</div>
         <ul class="detail-list" id="forecast-detail"></ul>
       </div>
 
-      <div class="card" id="health-card">
-        <h2>Deal Health</h2>
+      <div class="card card--health" id="health-card">
+        <h2><span class="card-icon">🩺</span>Deal Health</h2>
         <div class="stat" id="health-at-risk">—</div>
         <div class="stat-label">deals at risk</div>
         <ul class="detail-list" id="health-detail"></ul>
       </div>
 
-      <div class="card" id="scenario-card">
-        <h2>Scenario Spread</h2>
+      <div class="card card--scenario" id="scenario-card">
+        <h2><span class="card-icon">🎯</span>Scenario Spread</h2>
         <div class="scenario-row"><span>Worst</span><span id="scenario-worst">—</span></div>
         <div class="scenario-row"><span>Commit</span><span id="scenario-commit">—</span></div>
         <div class="scenario-row"><span>Best</span><span id="scenario-best">—</span></div>
@@ -45,7 +47,7 @@
 
     <section class="narrative-section">
       <div class="narrative-header">
-        <h2>AI Narrative</h2>
+        <h2><span class="card-icon">✨</span>AI Narrative</h2>
         <button id="generate-narrative-btn">Generate Narrative</button>
       </div>
       <p class="narrative-note">
@@ -53,7 +55,7 @@
         changes a number.
       </p>
       <div id="narrative-output" class="narrative-output">
-        Click "Generate Narrative" to summarize the numbers above in plain English.
+        <p class="narrative-placeholder">Click "Generate Narrative" to summarize the numbers above in plain English.</p>
       </div>
     </section>
   </main>

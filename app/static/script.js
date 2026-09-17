@@ -37,12 +37,18 @@ async function loadForecast() {
 async function loadHealth() {
   const res = await fetch("/api/health");
   const data = await res.json();
-  document.getElementById("health-at-risk").textContent = data.at_risk_count ?? 0;
+  const atRisk = data.at_risk_count ?? 0;
+  const statEl = document.getElementById("health-at-risk");
+  statEl.textContent = atRisk;
+  statEl.classList.toggle("stat--good", atRisk === 0);
+  statEl.classList.toggle("stat--warn", atRisk > 0);
+
   const list = document.getElementById("health-detail");
   list.innerHTML = "";
   for (const score of data.scores ?? []) {
     const li = document.createElement("li");
     li.textContent = `${score.deal_id} — ${score.score}/100${score.is_at_risk ? " (at risk)" : ""}`;
+    if (score.is_at_risk) li.classList.add("detail-list__item--warn");
     list.appendChild(li);
   }
 }
@@ -59,8 +65,9 @@ async function generateNarrative() {
   const button = document.getElementById("generate-narrative-btn");
   const output = document.getElementById("narrative-output");
   button.disabled = true;
+  button.textContent = "Generating…";
   output.classList.remove("error");
-  output.textContent = "Generating narrative…";
+  output.innerHTML = '<p class="narrative-placeholder">Generating narrative…</p>';
 
   try {
     const res = await fetch("/api/narrative", {
@@ -72,12 +79,13 @@ async function generateNarrative() {
     if (!res.ok) {
       throw new Error(data.detail || "Narrative generation failed.");
     }
-    output.textContent = data.narrative;
+    output.innerHTML = marked.parse(data.narrative);
   } catch (err) {
     output.classList.add("error");
-    output.textContent = `Could not generate narrative: ${err.message}`;
+    output.innerHTML = `<p>Could not generate narrative: ${err.message}</p>`;
   } finally {
     button.disabled = false;
+    button.textContent = "Generate Narrative";
   }
 }
 
