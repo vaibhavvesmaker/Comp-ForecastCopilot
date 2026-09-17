@@ -134,9 +134,9 @@ The layer most tools skip, and the one that determines whether anything downstre
 
 ## 7. Build Roadmap
 
-- [ ] Data Quality Gate — validation rules + structured report
-- [ ] Commission Calculator — plan-rule engine with audit trail
-- [ ] Rolling Forecast Engine — stage-weighted + time-series blend
+- [x] Data Quality Gate — validation rules + structured report
+- [x] Commission Calculator — plan-rule engine with audit trail
+- [x] Rolling Forecast Engine — stage-weighted + time-series blend
 - [ ] Deal Health Scorer
 - [ ] Scenario Modeler
 - [ ] AI Narrative Layer — variance explanations + Copilot Q&A
