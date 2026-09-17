@@ -31,6 +31,13 @@ Key design decision — two independent estimates, blended, not multiplied:
     30% trend, see BLEND_WEIGHT_STAGE / BLEND_WEIGHT_TREND) keeps each
     number's provenance legible in the audit trail instead of compounding
     assumptions no one can untangle later.
+
+`forecast()` accepts an optional `stage_weight_overrides` dict to swap
+in a different set of stage probabilities for a single call, without
+touching the module-level STAGE_WEIGHTS defaults everyone else relies
+on. This exists for the Scenario Modeler's best/worst-case scenarios
+(app/scenarios/modeler.py) — it re-runs this same engine with scaled
+weights rather than re-implementing the stage-weighting math elsewhere.
 """
 
 from __future__ import annotations
@@ -67,9 +74,11 @@ class RollingForecastEngine:
         rules: list[CommissionPlanRule],
         historical_deals: list[Deal] | None = None,
         as_of_date: date | None = None,
+        stage_weight_overrides: dict[DealStage, float] | None = None,
     ) -> ForecastRunResult:
         as_of_date = as_of_date or date.today()
         historical_deals = historical_deals or []
+        stage_weights = stage_weight_overrides or STAGE_WEIGHTS
 
         # Nothing below this line runs on unvalidated data.
         self.gate.run_or_raise(deals, quotas, rules, as_of_date)
@@ -81,7 +90,7 @@ class RollingForecastEngine:
         open_pipeline_total = 0.0
 
         for d in open_deals:
-            weight = STAGE_WEIGHTS[d.stage]
+            weight = stage_weights[d.stage]
             weighted_amount = round(d.amount * weight, 2)
             stage_weighted_total += weighted_amount
             open_pipeline_total += d.amount
