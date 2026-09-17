@@ -137,9 +137,9 @@ The layer most tools skip, and the one that determines whether anything downstre
 - [x] Data Quality Gate — validation rules + structured report
 - [x] Commission Calculator — plan-rule engine with audit trail
 - [x] Rolling Forecast Engine — stage-weighted + time-series blend
-- [ ] Deal Health Scorer
-- [ ] Scenario Modeler
-- [ ] AI Narrative Layer — variance explanations + Copilot Q&A
+- [x] Deal Health Scorer
+- [x] Scenario Modeler
+- [x] AI Narrative Layer — variance explanations + Copilot Q&A
 - [ ] Google Sheet data foundation (PivotTables, XLOOKUP model)
 - [ ] Dashboard (FastAPI + static frontend)
 - [ ] HubSpot pipeline sync (shared with the CRM feedback-loop project)
