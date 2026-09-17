@@ -114,3 +114,41 @@ COMMISSION_RULES = [
         ],
     ),
 ]
+
+# Clean, already-closed deals from prior quarters — the "Historical
+# Actuals" data foundation item from README section 4. Unlike DEALS
+# above, this is NOT built to trip the Data Quality Gate: it's a
+# calibration input for the Rolling Forecast Engine's time-series trend,
+# not a snapshot the gate validates.
+HISTORICAL_DEALS = [
+    Deal(
+        deal_id="H-0001", rep_id="R-01", account_name="Wayne Enterprises",
+        amount=80000, stage=DealStage.CLOSED_WON,
+        stage_entered_date=date(2026, 1, 10), actual_close_date=date(2026, 1, 20),
+    ),
+    Deal(
+        deal_id="H-0002", rep_id="R-01", account_name="Stark Industries",
+        amount=45000, stage=DealStage.CLOSED_LOST,
+        stage_entered_date=date(2026, 2, 1), actual_close_date=date(2026, 2, 15),
+    ),
+    Deal(
+        deal_id="H-0003", rep_id="R-02", account_name="Oscorp",
+        amount=30000, stage=DealStage.CLOSED_WON,
+        stage_entered_date=date(2026, 3, 1), actual_close_date=date(2026, 3, 25),
+    ),
+    Deal(
+        deal_id="H-0004", rep_id="R-01", account_name="LexCorp",
+        amount=60000, stage=DealStage.CLOSED_WON,
+        stage_entered_date=date(2026, 4, 5), actual_close_date=date(2026, 4, 28),
+    ),
+    Deal(
+        deal_id="H-0005", rep_id="R-02", account_name="Queen Consolidated",
+        amount=25000, stage=DealStage.CLOSED_LOST,
+        stage_entered_date=date(2026, 5, 1), actual_close_date=date(2026, 5, 18),
+    ),
+    Deal(
+        deal_id="H-0006", rep_id="R-01", account_name="Pym Technologies",
+        amount=90000, stage=DealStage.CLOSED_WON,
+        stage_entered_date=date(2026, 6, 1), actual_close_date=date(2026, 6, 30),
+    ),
+]
