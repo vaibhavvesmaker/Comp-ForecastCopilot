@@ -61,7 +61,6 @@ from __future__ import annotations
 import argparse
 import os
 import sys
-from datetime import date
 
 import gspread
 from google.oauth2.service_account import Credentials
@@ -73,57 +72,23 @@ from app.forecasting.engine import RollingForecastEngine
 from app.forecasting.models import ForecastRunResult
 from app.health.models import HealthReport
 from app.health.scorer import DealHealthScorer
-from app.models.schemas import AcceleratorTier, CommissionPlanRule, Deal, DealStage, RepQuota
+from app.models.schemas import CommissionPlanRule, RepQuota
 from app.scenarios.modeler import ScenarioModeler
 from app.scenarios.models import ScenarioSet
-from sample_data.demo_dataset import COMMISSION_RULES, DEALS, HISTORICAL_DEALS, QUOTAS, TODAY
+from sample_data.demo_dataset import (
+    CLEAN_DEALS,
+    CLEAN_QUOTAS,
+    COMMISSION_RULES,
+    DEALS,
+    HISTORICAL_DEALS,
+    QUOTAS,
+    TODAY,
+)
 
 SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive",
 ]
-
-
-# ---------------------------------------------------------------------------
-# A small, clean sample used for --demo, so a first-time run has data to
-# show in every tab without first having to fix the intentionally-dirty
-# demo dataset. Distinct from sample_data.demo_dataset.DEALS on purpose.
-# ---------------------------------------------------------------------------
-def _clean_demo_deals() -> list[Deal]:
-    return [
-        Deal(
-            deal_id="EXP-001", rep_id="R-01", account_name="Wayne Enterprises",
-            amount=120000, stage=DealStage.CLOSED_WON,
-            stage_entered_date=date(2026, 7, 10), actual_close_date=date(2026, 7, 20),
-        ),
-        Deal(
-            deal_id="EXP-002", rep_id="R-01", account_name="Northwind Traders",
-            amount=42000, stage=DealStage.PROPOSAL,
-            stage_entered_date=date(2026, 9, 5), expected_close_date=date(2026, 9, 30),
-            last_activity_date=date(2026, 9, 14),
-        ),
-        Deal(
-            deal_id="EXP-003", rep_id="R-02", account_name="Globex LLC",
-            amount=27500, stage=DealStage.NEGOTIATION,
-            stage_entered_date=date(2026, 9, 1), expected_close_date=date(2026, 9, 25),
-            last_activity_date=date(2026, 9, 10),
-        ),
-    ]
-
-
-def _clean_demo_quotas() -> list[RepQuota]:
-    return [
-        RepQuota(
-            rep_id="R-01", rep_name="Jordan Lee", team="Enterprise",
-            quota_amount=250000, period_start=date(2026, 7, 1),
-            period_end=date(2026, 9, 30), start_date=date(2024, 3, 1),
-        ),
-        RepQuota(
-            rep_id="R-02", rep_name="Sam Rivera", team="Enterprise",
-            quota_amount=150000, period_start=date(2026, 7, 1),
-            period_end=date(2026, 9, 30), start_date=date(2026, 1, 1),
-        ),
-    ]
 
 
 # ---------------------------------------------------------------------------
@@ -262,7 +227,7 @@ def main() -> None:
     args = parser.parse_args()
 
     if args.demo:
-        deals, quotas, rules = _clean_demo_deals(), _clean_demo_quotas(), COMMISSION_RULES
+        deals, quotas, rules = CLEAN_DEALS, CLEAN_QUOTAS, COMMISSION_RULES
     else:
         deals, quotas, rules = DEALS, QUOTAS, COMMISSION_RULES
 

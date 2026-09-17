@@ -14,7 +14,7 @@ from __future__ import annotations
 from datetime import date
 from typing import Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, computed_field
 
 
 class CommissionPayout(BaseModel):
@@ -83,6 +83,7 @@ class CommissionRunResult(BaseModel):
     payouts: list[CommissionPayout]
     skipped: list[SkippedDeal]
 
+    @computed_field  # type: ignore[prop-decorator]
     @property
     def total_payout_amount(self) -> float:
         return round(sum(p.payout_amount for p in self.payouts), 2)

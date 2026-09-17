@@ -152,3 +152,41 @@ HISTORICAL_DEALS = [
         stage_entered_date=date(2026, 6, 1), actual_close_date=date(2026, 6, 30),
     ),
 ]
+
+# A small, clean, curated snapshot — NOT built to trip the gate, unlike
+# DEALS above. Used anywhere a full demo needs the Data Quality Gate to
+# actually pass (the Google Sheets export script's --demo flag, the
+# FastAPI dashboard), so there's one shared definition of "clean demo
+# data" instead of copies drifting apart across the codebase.
+CLEAN_QUOTAS = [
+    RepQuota(
+        rep_id="R-01", rep_name="Jordan Lee", team="Enterprise",
+        quota_amount=250000, period_start=date(2026, 7, 1),
+        period_end=date(2026, 9, 30), start_date=date(2024, 3, 1),
+    ),
+    RepQuota(
+        rep_id="R-02", rep_name="Sam Rivera", team="Enterprise",
+        quota_amount=150000, period_start=date(2026, 7, 1),
+        period_end=date(2026, 9, 30), start_date=date(2026, 1, 1),
+    ),
+]
+
+CLEAN_DEALS = [
+    Deal(
+        deal_id="EXP-001", rep_id="R-01", account_name="Wayne Enterprises",
+        amount=120000, stage=DealStage.CLOSED_WON,
+        stage_entered_date=date(2026, 7, 10), actual_close_date=date(2026, 7, 20),
+    ),
+    Deal(
+        deal_id="EXP-002", rep_id="R-01", account_name="Northwind Traders",
+        amount=42000, stage=DealStage.PROPOSAL,
+        stage_entered_date=date(2026, 9, 5), expected_close_date=date(2026, 9, 30),
+        last_activity_date=date(2026, 9, 14),
+    ),
+    Deal(
+        deal_id="EXP-003", rep_id="R-02", account_name="Globex LLC",
+        amount=27500, stage=DealStage.NEGOTIATION,
+        stage_entered_date=date(2026, 9, 1), expected_close_date=date(2026, 9, 25),
+        last_activity_date=date(2026, 9, 10),
+    ),
+]

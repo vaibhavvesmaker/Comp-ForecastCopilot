@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comp & Forecast Copilot</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header>
+    <h1>Comp &amp; Forecast Copilot</h1>
+    <p class="subtitle">Deterministic commission, forecast &amp; deal health — explained, not guessed.</p>
+  </header>
+
+  <main>
+    <section class="card-grid">
+      <div class="card" id="commission-card">
+        <h2>Commission</h2>
+        <div class="stat" id="commission-total">—</div>
+        <div class="stat-label">total paid out</div>
+        <ul class="detail-list" id="commission-detail"></ul>
+      </div>
+
+      <div class="card" id="forecast-card">
+        <h2>Revenue Forecast</h2>
+        <div class="stat" id="forecast-total">—</div>
+        <div class="stat-label">blended forecast</div>
+        <ul class="detail-list" id="forecast-detail"></ul>
+      </div>
+
+      <div class="card" id="health-card">
+        <h2>Deal Health</h2>
+        <div class="stat" id="health-at-risk">—</div>
+        <div class="stat-label">deals at risk</div>
+        <ul class="detail-list" id="health-detail"></ul>
+      </div>
+
+      <div class="card" id="scenario-card">
+        <h2>Scenario Spread</h2>
+        <div class="scenario-row"><span>Worst</span><span id="scenario-worst">—</span></div>
+        <div class="scenario-row"><span>Commit</span><span id="scenario-commit">—</span></div>
+        <div class="scenario-row"><span>Best</span><span id="scenario-best">—</span></div>
+      </div>
+    </section>
+
+    <section class="narrative-section">
+      <div class="narrative-header">
+        <h2>AI Narrative</h2>
+        <button id="generate-narrative-btn">Generate Narrative</button>
+      </div>
+      <p class="narrative-note">
+        Reads only the calculated results above — never raw deal data — and never
+        changes a number.
+      </p>
+      <div id="narrative-output" class="narrative-output">
+        Click "Generate Narrative" to summarize the numbers above in plain English.
+      </div>
+    </section>
+  </main>
+
+  <script src="/script.js"></script>
+</body>
+</html>
