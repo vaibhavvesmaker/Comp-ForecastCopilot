@@ -142,7 +142,7 @@ The layer most tools skip, and the one that determines whether anything downstre
 - [x] AI Narrative Layer — variance explanations + Copilot Q&A
 - [ ] Google Sheet data foundation (PivotTables, XLOOKUP model) — export script done (scripts/export_to_sheets.py); PivotTables/XLOOKUP formulas are manual analyst work
 - [x] Dashboard (FastAPI + static frontend)
-- [ ] HubSpot pipeline sync (shared with the CRM feedback-loop project)
+- [x] HubSpot pipeline sync (shared with the CRM feedback-loop project)
 
 ---
 
